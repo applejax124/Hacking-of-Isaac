@@ -1,16 +1,8 @@
+#include <enemy.h>
+#include <isaac.h>
 #include <Arduboy2.h>
 
 Arduboy2 arduboy;
-
-const uint8_t PROGMEM isaac[] = {
-  0x07, 0xE0, 0x0D, 0xB0, 0x1B, 0xD8, 0x39, 0x9C, 
-  0x79, 0x9E, 0x7F, 0xFE, 0x7E, 0x7E, 0x3C, 0x3C, 
-  0x1C, 0x38, 0x0F, 0xF0, 0x03, 0xC0, 0x1F, 0xF8, 
-  0x1F, 0xF8, 0x07, 0xE0, 0x07, 0xE0, 0x06, 0x60};
-
-int isaac_x = 64;
-int isaac_y = 31;
-int isaac_size = 16;
 
 int tear_range = 0;
 int tear_max_range = 12;
@@ -19,15 +11,14 @@ int tear_y = -1;
 int tear_dx = 1;
 int tear_dy = 0;
 
-typedef struct Isaac {
-  int x = 64;
-  int y = 31;
-  int size = 16;
-} Isaac;
+Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2};
+Enemy p1 = {0, 0, 11, 9, 1, 1, P, pooter_bmp, 3};
+Isaac isaac = {40, 40, 16, 16, 2, 2, isaac_bmp, 3};
 
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
+  
 }
 
 void loop() {
@@ -35,52 +26,62 @@ void loop() {
     return;
   }
   arduboy.clear();
-  
+
+  draw_enemy(f1);
+  draw_enemy(p1);
   draw_isaac();
   draw_tears();
 
   // this is a great way to debug lmao
-  arduboy.setCursor(10, 10);
-  arduboy.print(tear_x);
+  //arduboy.setCursor(40, 40);
+  //arduboy.print(tear_x);
   arduboy.display();
 }
 
+void draw_enemy(Enemy enemy){
+  arduboy.drawSlowXYBitmap(enemy.xpos, enemy.ypos, enemy.bmp, enemy.width, enemy.height, WHITE);
+}
+
 void draw_isaac() {
+  
   // move isaac according to d-pad input
-  if (arduboy.pressed(RIGHT_BUTTON) && isaac_x < WIDTH - (isaac_size + 1)) {
-    isaac_x += 2;
+  if (arduboy.pressed(RIGHT_BUTTON) && isaac.xpos < WIDTH - (isaac.width + 1)) {
+    isaac.xpos += 2;
     tear_dx = 1;
     tear_dy = 0;
   }
 
-  if (arduboy.pressed(LEFT_BUTTON) && isaac_x > 1) {
-    isaac_x -= 2;
+  if (arduboy.pressed(LEFT_BUTTON) && isaac.xpos > 1) {
+    isaac.xpos -= 2;
     tear_dx = -1;
     tear_dy = 0;
   }
 
-  if (arduboy.pressed(DOWN_BUTTON) && isaac_y < HEIGHT - (isaac_size + 1)) {
-    isaac_y += 2;
+  if (arduboy.pressed(DOWN_BUTTON) && isaac.ypos < HEIGHT - (isaac.height + 1)) {
+    isaac.ypos += 2;
     tear_dx = 0;
     tear_dy = 1;
   }
 
-  if (arduboy.pressed(UP_BUTTON) && isaac_y > 1) {
-    isaac_y -= 2;
+  if (arduboy.pressed(UP_BUTTON) && isaac.ypos > 1) {
+    isaac.ypos -= 2;
     tear_dx = 0;
     tear_dy = -1;
   }
 
   // draw isaac
-  arduboy.drawSlowXYBitmap(isaac_x, isaac_y, isaac, isaac_size, isaac_size, WHITE);
+  arduboy.drawSlowXYBitmap(isaac.xpos, isaac.ypos, isaac.bmp, isaac.width, isaac.height, WHITE);
 }
 
 
+
+
 void draw_tears() {
+  
   // for now, only allowing 1 tear on screen at a time
   if (arduboy.pressed(B_BUTTON) && tear_x == -1) {
-    tear_x = isaac_x + 8 + tear_dx;
-    tear_y = isaac_y + 8 + tear_dy;
+    tear_x = isaac.xpos + 8 + tear_dx;
+    tear_y = isaac.ypos + 8 + tear_dy;
   }
 
   if (tear_x == -1) {
@@ -104,4 +105,3 @@ void draw_tears() {
 bool in_bounds(int x, int y, int pad) {
   return x - pad > 0 and x + pad < WIDTH and y - pad > 0 and y + pad < WIDTH;
 }
-
