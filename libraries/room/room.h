@@ -7,7 +7,7 @@
 typedef struct room {
   Enemy enemies[];
   Obstacle obstacles[];
-  int doors[];
+  int doors[4] = {0,0,0,0};
 };
 
 #endif

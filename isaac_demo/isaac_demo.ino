@@ -1,5 +1,6 @@
 #include <enemy.h>
 #include <isaac.h>
+#include <room.h>
 #include <Arduboy2.h>
 
 Arduboy2 arduboy;
@@ -14,6 +15,7 @@ int tear_dy = 0;
 Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2};
 Enemy p1 = {0, 0, 11, 9, 1, 1, P, pooter_bmp, 3};
 Isaac isaac = {40, 40, 16, 16, 2, 2, isaac_bmp, 3};
+Room test_room = {{1,1,1,1}}
 
 void setup() {
   arduboy.begin();
@@ -27,6 +29,8 @@ void loop() {
   }
   arduboy.clear();
 
+  // TODO: define top margin elsewhere.
+  draw_room(&arduboy, &test_room, 10)
   draw_enemy(f1);
   draw_enemy(p1);
   draw_isaac();
