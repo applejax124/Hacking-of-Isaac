@@ -20,4 +20,6 @@ typedef struct Isaac {
 
 #endif
 
+void move_isaac();
 
+void draw_isaac();
