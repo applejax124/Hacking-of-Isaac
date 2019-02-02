@@ -1,7 +1,7 @@
 #ifndef PROJECTILES_H
 #define PROJECTILES_H
 
-enum projectile_type {F, E};
+typedef enum projectile_type {I, H} projectile_type;
 
 typedef struct Projectile {
   int xpos;
@@ -12,9 +12,8 @@ typedef struct Projectile {
   projectile_type type;
 } Projectile;
 
-Projectile enemy_projectiles[];
-
-Projectile isaac_projectiles[];
+//Projectile hostile_projectiles[];
+//Projectile isaac_projectiles[];
 
 #endif
 

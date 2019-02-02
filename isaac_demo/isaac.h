@@ -1,3 +1,6 @@
+#include <Arduboy2.h>
+
+
 #ifndef ISAAC_H
 #define ISAAC_H
 
@@ -18,8 +21,7 @@ typedef struct Isaac {
   int life;
 } Isaac;
 
+void move_isaac(Arduboy2, Isaac*);
+void draw_isaac(Arduboy2, Isaac);
+
 #endif
-
-void move_isaac();
-
-void draw_isaac();

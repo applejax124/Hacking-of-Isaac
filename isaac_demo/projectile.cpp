@@ -1,3 +1,5 @@
+#include "projectile.h"
+
 void add_friendlies();
 
 void add_enemies();
