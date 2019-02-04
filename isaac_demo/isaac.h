@@ -21,7 +21,8 @@ typedef struct Isaac {
   int life;
 } Isaac;
 
-void draw_isaac(Arduboy2 arduboy, Isaac isaac);
-void move_isaac(Arduboy2 arduboy, Isaac * isaac);
+void draw_isaac(Arduboy2 * arduboy, Isaac * isaac);
+void move_isaac(Arduboy2 * arduboy, Isaac * isaac);
+
 
 #endif
