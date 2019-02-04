@@ -42,12 +42,12 @@ void loop() {
   }
   arduboy.clear();
 
-  draw_enemy(arduboy, f1);
-  draw_enemy(arduboy, p1);
-  draw_room(arduboy, r);
-  draw_isaac(arduboy, isaac);
+  draw_enemy(&arduboy, &f1);
+  draw_enemy(&arduboy, &p1);
+  draw_room(&arduboy, &r);
+  draw_isaac(&arduboy, &isaac);
   
-  move_isaac(arduboy, &isaac);
+  move_isaac(&arduboy, &isaac);
 
   arduboy.display();
 }

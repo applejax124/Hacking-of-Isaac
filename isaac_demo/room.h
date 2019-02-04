@@ -10,13 +10,12 @@ typedef struct Room {
   bool cleared;
 } Room;
 
-
 typedef struct Map {
   bool cleared;
   Room rooms[9];
 } Map;
 
-void draw_room(Arduboy2 arduboy, Room r);
 void create_rooms(Map *m, int level[]);
+void draw_room(Arduboy2 * arduboy, Room * r);
 
 #endif
