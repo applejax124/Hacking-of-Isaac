@@ -22,7 +22,7 @@ typedef struct Enemy {
   int speedx;
   int speedy;
   enemy_type type; 
-  uint8_t bmp;
+  const uint8_t * bmp;
   int life;
 } Enemy;
 
