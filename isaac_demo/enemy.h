@@ -26,6 +26,6 @@ typedef struct Enemy {
   int life;
 } Enemy;
 
-void draw_enemy(Arduboy2 arduboy, Enemy e);
+void draw_enemy(Arduboy2 * arduboy, Enemy * e);
 
 #endif
