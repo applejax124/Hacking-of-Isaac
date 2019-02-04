@@ -16,7 +16,7 @@ int tear_dx = 1;
 int tear_dy = 0;
 
 Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2};
-Enemy p1 = {0, 0, 11, 9, 1, 1, P, pooter_bmp, 3};
+Enemy p1 = {30, 30, 11, 9, 1, 1, P, pooter_bmp, 3};
 Isaac isaac = {40, 40, 16, 16, 2, 2, isaac_bmp, 3};
 Room r = {.doors = {1,0,0,0}};
 
