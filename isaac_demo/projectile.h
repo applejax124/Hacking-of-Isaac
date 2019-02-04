@@ -12,8 +12,8 @@ typedef struct Projectile {
   projectile_type type;
 } Projectile;
 
-//Projectile hostile_projectiles[];
-//Projectile isaac_projectiles[];
+//Projectile hostile_projectiles[10];
+//Projectile isaac_projectiles[5];
 
 #endif
 
