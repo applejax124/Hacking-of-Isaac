@@ -17,11 +17,11 @@ typedef struct Isaac {
   int width;
   int speedx;
   int speedy;
-  uint8_t bmp;
+  const uint8_t * bmp;
   int life;
 } Isaac;
 
-void move_isaac(Arduboy2, Isaac*);
-void draw_isaac(Arduboy2, Isaac);
+void draw_isaac(Arduboy2 arduboy, Isaac isaac);
+void move_isaac(Arduboy2 arduboy, Isaac * isaac);
 
 #endif
