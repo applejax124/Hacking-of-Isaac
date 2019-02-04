@@ -1,11 +1,10 @@
 #include "room.h"
 
 // Draws all features of the room within the space specified.
-void draw_room(Arduboy2 * arduboy, Room * r) {
+void draw_room(Arduboy2 * arduboy, Room * r, int top_margin) {
 
   int door_width = 16;
   int door_thickness = 4;
-  int top_margin = 10;
 
   if (r->doors[0]) {
     arduboy->fillRect(WIDTH/2 - door_width/2,

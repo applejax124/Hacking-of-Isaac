@@ -9,6 +9,6 @@ typedef struct Room {
   int doors[4];
 } Room;
 
-void draw_room(Arduboy2 * arduboy, Room * r);
+void draw_room(Arduboy2 * arduboy, Room * r, int top_margin);
 
 #endif

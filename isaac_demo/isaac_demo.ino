@@ -4,6 +4,7 @@
 #include "isaac.h"
 #include "projectile.h"
 #include "room.h"
+#include "status.h"
 
 Arduboy2 arduboy;
 
@@ -42,7 +43,8 @@ void loop() {
 
   draw_enemy(&arduboy, &f1);
   draw_enemy(&arduboy, &p1);
-  draw_room(&arduboy, &r);
+  draw_room(&arduboy, &r, STATUS_BAR_HEIGHT);
+  draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
   draw_isaac(&arduboy, &isaac);
   
   move_isaac(&arduboy, &isaac);
