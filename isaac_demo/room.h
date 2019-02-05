@@ -12,10 +12,12 @@ typedef struct Room {
   //Obstacle obstacles[];
   int doors[4];
   bool cleared;
+  bool is_in_map;
 } Room;
 
 typedef struct Map {
   bool cleared;
+
   Room rooms[9];
   int active_room;
 } Map;
