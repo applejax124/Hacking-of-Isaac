@@ -41,29 +41,26 @@ Map create_map() {
   } else if (LEVEL == 3) {
     create_rooms(m, level3);
   }
-  
-  /*
-  for (int i = 0; i < 9; i++) {
-    //Room curr_room = {.doors = {1,0,0,0}, .cleared = 0};
-    if (LEVEL == 1) {
-    } else if (LEVEL == 2) {
-      
-    }  else if (LEVEL == 3) {
-      
-    }
-    //m.rooms[i] = curr_room;
-  }*/
 }
 
 void create_rooms(Map *m, int level[]) {
-  for (int i = 0; i < 9; i++) { 
-    int is_up = i < 3 ? 1 : 0;
-    int is_right = (i % 3) - 2 == 0 ? 1 : 0;
-    int is_down = i > 5 ? 1 : 0;
-    int is_left = i % 3 == 0 ? 1 : 0;
+  for (int i = 0; i < 9; i++) {
+    if (!level[i]) {
+      Room r = {.is_in_map = false};
+      m->rooms[i] = r;
+      continue;
+    }
+
     
-    Room r = {.doors = {is_up, is_right, is_down, is_left}, .cleared = 0};
+    Room r = {.cleared = 0, .is_in_map = 0};
     m->rooms[i] = r;
+  }
+
+  for (int i = 0; i < 9; i++) {
+    m->rooms[i].doors[0] =  i > 2       && m->rooms[i-3].is_in_map ? 1 : 0; // up
+    m->rooms[i].doors[1] = (i % 3) - 2  && m->rooms[i+1].is_in_map ? 1 : 0; // right
+    m->rooms[i].doors[2] = i < 6        && m->rooms[i+3].is_in_map ? 1 : 0; // down
+    m->rooms[i].doors[3] == i % 3       && m->rooms[i-1].is_in_map ? 1 : 0; // left
   }
 }
 
