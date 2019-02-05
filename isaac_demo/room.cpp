@@ -43,13 +43,17 @@ Map create_map() {
 void create_rooms(Map *m, int level[]) {
   for (int i = 0; i < 9; i++) {
     if (!level[i]) {
-      Room r = {.is_in_map = false};
+      //Room r = {.is_in_map = false};
+      Room r;
+      r.is_in_map = false;
       m->rooms[i] = r;
       continue;
     }
 
-    
-    Room r = {.cleared = 0, .is_in_map = 0};
+    //Room r = {.cleared = 0, .is_in_map = 0};
+    Room r;
+    r.cleared = 0;
+    r.is_in_map = false;
     m->rooms[i] = r;
   }
 
@@ -61,33 +65,49 @@ void create_rooms(Map *m, int level[]) {
   }
 }
 
+
+// TODO: The constatnts used mary the system to a 3x3 grid, should abstract.
+// TODO: Isaac should have a built-in reset method.
+// TODO: Increase door tolerances to account for Isaac's width.
 void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies) {
   if ((m->rooms[m->active_room].doors[0]) &&
       (i->xpos > WIDTH/2 - DOOR_WIDTH/2) && 
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
       (i->ypos < top_margin + DOOR_THICKNESS) &&
-      (num_enemies < 1)) {
+      (num_enemies < 1) &&
+      (m->active_room > 2)) {
     m->active_room -= 3;
+    i->xpos = 40;
+    i->ypos = 40;
   }
   if ((m->rooms[m->active_room].doors[1]) &&
       (i->ypos > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
       (i->xpos > WIDTH - DOOR_THICKNESS) &&
-      (num_enemies < 1)) {
+      (num_enemies < 1) &&
+      (m->active_room < 8)) {
     m->active_room += 1;
+    i->xpos = 40;
+    i->ypos = 40;
   }
   if ((m->rooms[m->active_room].doors[2]) &&
       (i->xpos > WIDTH/2 - DOOR_WIDTH/2) && 
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
       (i->ypos > HEIGHT - DOOR_THICKNESS) &&
-      (num_enemies < 1)) {
+      (num_enemies < 1) &&
+      (m->active_room < 6)) {
     m->active_room += 3;
+    i->xpos = 40;
+    i->ypos = 40;
   }
   if ((m->rooms[m->active_room].doors[3]) &&
       (i->ypos > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
       (i->xpos < WIDTH + DOOR_THICKNESS) &&
-      (num_enemies < 1)) {
+      (num_enemies < 1) && 
+      (m->active_room > 0)) {
     m->active_room -= 1;
+    i->xpos = 40;
+    i->ypos = 40;
   }
 }

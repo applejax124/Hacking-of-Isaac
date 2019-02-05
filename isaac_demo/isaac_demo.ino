@@ -18,9 +18,14 @@ int tear_dy = 0;
 
 Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2};
 Enemy p1 = {30, 30, 11, 9, 1, 1, P, pooter_bmp, 3};
+// TODO: the code currently assumes enemey lists will follow a pattern
+//        of tracking size with a seperate integer.
+int enemy_count = 0;
 Isaac isaac = {40, 40, 16, 16, 2, 2, isaac_bmp, 3};
 Room r = {.doors = {1,0,0,0}, .cleared = 0 };
+Room r2 = {.doors = {1,1,1,1}, .cleared = 0 };
 //Map m = create_map();
+Map m;
 
 /*
  * 
@@ -30,6 +35,9 @@ Room r = {.doors = {1,0,0,0}, .cleared = 0 };
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
+  m.rooms[3] = r;
+  m.active_room = 3;
+  m.rooms[0] = r2;
 }
 
 /*
@@ -45,12 +53,12 @@ void loop() {
 
   draw_enemy(&arduboy, &f1);
   draw_enemy(&arduboy, &p1);
-  draw_room(&arduboy, &r, STATUS_BAR_HEIGHT);
+  draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
   draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
   draw_isaac(&arduboy, &isaac);
   
   move_isaac(&arduboy, &isaac);
-  //check_use_door(&m, &isaac);
+  check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, enemy_count);
 
   arduboy.display();
 }
