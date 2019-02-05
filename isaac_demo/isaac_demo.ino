@@ -50,6 +50,7 @@ void loop() {
   draw_isaac(&arduboy, &isaac);
   
   move_isaac(&arduboy, &isaac);
+  //check_use_door(&m, &isaac);
 
   arduboy.display();
 }
