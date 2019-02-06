@@ -7,7 +7,7 @@ int level2[] = {1, 1, 1, 1, 0, 1, 1, 0, 1};
 int level3[] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 // Draws all features of the room within the space specified.
-void draw_room(Arduboy2 * arduboy, Room * r, int top_margin) {
+void draw_room(Arduboy2 * arduboy, Room * r, Isaac *isaac, int top_margin) {
   if (r->doors[0]) {
     arduboy->fillRect(WIDTH/2 - DOOR_WIDTH/2,
                       top_margin + DOOR_THICKNESS,
@@ -28,11 +28,30 @@ void draw_room(Arduboy2 * arduboy, Room * r, int top_margin) {
                       DOOR_THICKNESS, DOOR_WIDTH, WHITE);
   }
 
-  //TODO: draw enemies (if not cleared) (cami)
+  //draw enemies (if room not cleared)
+  if (!r->cleared){
+    for (int i = 0; i < 5; i++){
+      if (r->enemies[i] != NULL){
+        draw_enemy(arduboy, r->enemies[i]);
+      }
+    }
+  }
 
-  //TODO: draw isaac (cami)
+  //draw isaac
+  draw_isaac(arduboy, isaac);
 
-  //TODO: draw projectiles in the room (cami)
+  //draw projectiles
+  for (int i = 0; i < 4; i++){
+    if (r->isaac_projectiles[i] != NULL){
+      draw_projectile(arduboy, r->isaac_projectiles[i])
+    }
+  }
+
+  for (int i = 0; i < 20; i++){
+    if (r->hostile_projectiles[i] != NULL){
+      draw_projectile(arduboy, r->hostile_projectiles[i])
+    }
+  }
 
 }
 

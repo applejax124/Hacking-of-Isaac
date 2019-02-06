@@ -28,7 +28,7 @@ void loop() {
   arduboy.clear();
 
   //TODO: draw room
-  draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
+  draw_room(&arduboy, &m.rooms[m.active_room], &isaac, STATUS_BAR_HEIGHT);
 
   //TODO: draw status bar
   draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
