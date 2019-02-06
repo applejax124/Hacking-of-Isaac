@@ -1,5 +1,7 @@
 #include "isaac.h"
 
+#include "status.h"
+
 void move_isaac(Arduboy2 * arduboy, Isaac * isaac){
 
   if (arduboy->pressed(RIGHT_BUTTON) && isaac->xpos < WIDTH - (isaac->width + 1)) {
@@ -8,7 +10,7 @@ void move_isaac(Arduboy2 * arduboy, Isaac * isaac){
     isaac->xpos -= isaac->speedx;
   }else if (arduboy->pressed(DOWN_BUTTON) && isaac->ypos < HEIGHT - (isaac->height + 1)) {
     isaac->ypos += isaac->speedy;
-  }else if (arduboy->pressed(UP_BUTTON) && isaac->ypos > 1) {
+  }else if (arduboy->pressed(UP_BUTTON) && isaac->ypos > STATUS_BAR_HEIGHT) {
     isaac->ypos -= isaac->speedy;
   }
 
