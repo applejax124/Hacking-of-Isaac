@@ -1,6 +1,11 @@
 #ifndef PROJECTILES_H
 #define PROJECTILES_H
 
+#include <Arduboy2.h>
+#include "isaac.h"
+#include "room.h"
+#include "enemy.h"
+
 typedef enum projectile_type {I, H} projectile_type;
 
 typedef struct Projectile {
@@ -12,15 +17,9 @@ typedef struct Projectile {
   projectile_type type;
 } Projectile;
 
-//Projectile hostile_projectiles[10];
-//Projectile isaac_projectiles[5];
+void add_isaac_projectiles(Arduboy2*, Isaac*, Room*);
+void add_hostile_projectiles(Room*);
+void move_projectile(Room*);
+void draw_projectile(Arduboy2*, Room*);
 
 #endif
-
-void add_friendlies();
-
-void add_enemies();
-
-void move_projectiles();
-
-void draw_projectiles();

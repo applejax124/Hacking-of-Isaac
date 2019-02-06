@@ -22,18 +22,10 @@ Enemy p1 = {30, 30, 11, 9, 1, 1, P, pooter_bmp, 3};
 // TODO: the code currently assumes enemey lists will follow a pattern
 //        of tracking size with a seperate integer.
 int enemy_count = 0;
+
 Isaac isaac = {40, 40, ISAAC_HEIGHT, ISAAC_WIDTH, 2, 2, isaac_bmp, 3};
-Room r = {.doors = {0,1,1,0}, .cleared = 0 };
-Room r1 = {.doors = {0,1,1,1}, .cleared = 0 };
-Room r2 = {.doors = {0,0,1,1}, .cleared = 0 };
-Room r3 = {.doors = {1,1,1,0}, .cleared = 0 };
-Room r4 = {.doors = {1,1,1,1}, .cleared = 0 };
-Room r5 = {.doors = {1,0,1,1}, .cleared = 0 };
-Room r6 = {.doors = {1,1,0,0}, .cleared = 0 };
-Room r7 = {.doors = {1,1,0,1}, .cleared = 0 };
-Room r8 = {.doors = {1,0,0,1}, .cleared = 0 };
-//Map m = create_map();
-Map m;
+Map m = create_map();
+
 
 /*
  * 
@@ -43,16 +35,6 @@ Map m;
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
-  m.active_room = 0;
-  m.rooms[0] = r;
-  m.rooms[1] = r1;
-  m.rooms[2] = r2;
-  m.rooms[3] = r3;
-  m.rooms[4] = r4;
-  m.rooms[5] = r5;
-  m.rooms[6] = r6;
-  m.rooms[7] = r7;
-  m.rooms[8] = r8;
 }
 
 /*
