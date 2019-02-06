@@ -1,5 +1,6 @@
 #include <Arduboy2.h>
 
+#include "collisions.h"
 #include "enemy.h"
 #include "isaac.h"
 #include "projectile.h"
