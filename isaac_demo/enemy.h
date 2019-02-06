@@ -27,5 +27,6 @@ typedef struct Enemy {
 } Enemy;
 
 void draw_enemy(Arduboy2 * arduboy, Enemy * e);
+void move_enemy(Enemy*);
 
 #endif
