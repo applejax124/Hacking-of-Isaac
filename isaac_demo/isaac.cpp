@@ -19,3 +19,9 @@ void draw_isaac(Arduboy2 * arduboy, Isaac * isaac){
   arduboy->drawSlowXYBitmap(isaac->xpos, isaac->ypos, isaac->bmp, isaac->width, isaac->height, WHITE);
 
 }
+
+// Changes the coordinates of Isaac.
+void update_isaac_position(Isaac * i, int x_pos, int y_pos) {
+  i->xpos = x_pos;
+  i->ypos = y_pos;
+}

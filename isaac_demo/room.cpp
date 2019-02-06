@@ -12,19 +12,22 @@ int level3[] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 void draw_room(Arduboy2 * arduboy, Room * r, int top_margin) {
   if (r->doors[0]) {
     arduboy->fillRect(WIDTH/2 - DOOR_WIDTH/2,
-               top_margin + DOOR_THICKNESS, DOOR_WIDTH, DOOR_THICKNESS, WHITE);
+                      top_margin + DOOR_THICKNESS,
+                      DOOR_WIDTH, DOOR_THICKNESS, WHITE);
   }
   if (r->doors[1]) {
     arduboy->fillRect(WIDTH - DOOR_THICKNESS,
-               (HEIGHT - top_margin)/2 - DOOR_WIDTH/2 + top_margin, DOOR_THICKNESS, DOOR_WIDTH, WHITE);
+                      (HEIGHT - top_margin)/2 - DOOR_WIDTH/2 + top_margin,
+                      DOOR_THICKNESS, DOOR_WIDTH, WHITE);
   }
   if (r->doors[2]) {
     arduboy->fillRect(WIDTH/2 - DOOR_WIDTH/2,
-               HEIGHT - DOOR_THICKNESS, DOOR_WIDTH, DOOR_THICKNESS, WHITE);
+                      HEIGHT - DOOR_THICKNESS,
+                      DOOR_WIDTH, DOOR_THICKNESS, WHITE);
   }
   if (r->doors[3]) {
-    arduboy->fillRect(0,
-               (HEIGHT - top_margin)/2 - DOOR_WIDTH/2 + top_margin, DOOR_THICKNESS, DOOR_WIDTH, WHITE);
+    arduboy->fillRect(0, (HEIGHT - top_margin)/2 - DOOR_WIDTH/2 + top_margin,
+                      DOOR_THICKNESS, DOOR_WIDTH, WHITE);
   }
 }
 
@@ -68,46 +71,41 @@ void create_rooms(Map *m, int level[]) {
 
 // TODO: The constatnts used mary the system to a 3x3 grid, should abstract.
 // TODO: Isaac should have a built-in reset method.
-// TODO: Increase door tolerances to account for Isaac's width.
 void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies) {
   if ((m->rooms[m->active_room].doors[0]) &&
-      (i->xpos > WIDTH/2 - DOOR_WIDTH/2) && 
+      (i->xpos + ISAAC_WIDTH > WIDTH/2 - DOOR_WIDTH/2) && 
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
       (i->ypos < top_margin + DOOR_THICKNESS) &&
       (num_enemies < 1) &&
       (m->active_room > 2)) {
     m->active_room -= 3;
-    i->xpos = 40;
-    i->ypos = 40;
+    update_isaac_position(i, i->xpos, HEIGHT-i->ypos - 2*DOOR_THICKNESS);
   }
   if ((m->rooms[m->active_room].doors[1]) &&
-      (i->ypos > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
+      (i->ypos + ISAAC_HEIGHT > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
-      (i->xpos > WIDTH - DOOR_THICKNESS) &&
+      (i->xpos + ISAAC_WIDTH > WIDTH - DOOR_THICKNESS) &&
       (num_enemies < 1) &&
       (m->active_room < 8)) {
     m->active_room += 1;
-    i->xpos = 40;
-    i->ypos = 40;
+    update_isaac_position(i, WIDTH-i->xpos + DOOR_THICKNESS, i->ypos);
   }
   if ((m->rooms[m->active_room].doors[2]) &&
-      (i->xpos > WIDTH/2 - DOOR_WIDTH/2) && 
+      (i->xpos + ISAAC_WIDTH > WIDTH/2 - DOOR_WIDTH/2) && 
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
-      (i->ypos > HEIGHT - DOOR_THICKNESS) &&
+      (i->ypos + ISAAC_HEIGHT > HEIGHT - DOOR_THICKNESS) &&
       (num_enemies < 1) &&
       (m->active_room < 6)) {
     m->active_room += 3;
-    i->xpos = 40;
-    i->ypos = 40;
+    update_isaac_position(i, i->xpos, HEIGHT-i->ypos + DOOR_THICKNESS);
   }
   if ((m->rooms[m->active_room].doors[3]) &&
-      (i->ypos > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
+      (i->ypos + ISAAC_HEIGHT > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) && 
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
-      (i->xpos < WIDTH + DOOR_THICKNESS) &&
+      (i->xpos < DOOR_THICKNESS) &&
       (num_enemies < 1) && 
       (m->active_room > 0)) {
     m->active_room -= 1;
-    i->xpos = 40;
-    i->ypos = 40;
+    update_isaac_position(i, WIDTH-i->xpos - 4*DOOR_THICKNESS, i->ypos);
   }
 }
