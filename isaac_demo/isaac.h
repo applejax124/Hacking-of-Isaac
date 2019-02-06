@@ -1,8 +1,8 @@
-#ifndef ISAAC_H
-#define ISAAC_H
-
 #include <Arduboy2.h>
 #include "status.h"
+
+#ifndef ISAAC_H
+#define ISAAC_H
 
 #define ISAAC_HEIGHT 16
 #define ISAAC_WIDTH 16
@@ -21,10 +21,12 @@ const uint8_t PROGMEM isaac_bmp[] = {
 typedef struct Isaac {
   int xpos;
   int ypos;
-  int height; 
-  int width;
+  const uint8_t height;
+  const uint8_t width;
+  int speedx;
+  int speedy;
   const uint8_t * bmp;
-  int life;
+  const uint8_t life;
 } Isaac;
 
 void draw_isaac(Arduboy2 * arduboy, Isaac * isaac);

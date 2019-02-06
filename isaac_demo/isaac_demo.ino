@@ -8,7 +8,7 @@
 
 //TODO: instantiations -- (arduboy, isaac, map, ??)
 Arduboy2 arduboy;
-Isaac isaac = {40, 40, ISAAC_HEIGHT, ISAAC_WIDTH, isaac_bmp, ISAAC_LIVES};
+Isaac isaac = {40, 40, ISAAC_HEIGHT, ISAAC_WIDTH, 0, 0, isaac_bmp, ISAAC_LIVES};
 Map m = create_map();
 
 //TODO: setup function
@@ -28,19 +28,14 @@ void loop() {
   arduboy.clear();
 
   //TODO: draw room
+  draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
 
   //TODO: draw status bar
+  draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
 
   //TODO: update room --> updates the location of each of the elements in the room
-
-  draw_enemy(&arduboy, &f1);
-  draw_enemy(&arduboy, &p1);
-  draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
-  draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
-  draw_isaac(&arduboy, &isaac);
-  
-  move_isaac(&arduboy, &isaac);
-  check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, enemy_count);
+  update_room(&arduboy, &isaac, &m.rooms[m.active_room]);
+  check_use_door(&m, &isaac, STATUS_BAR_HEIGHT,  m.rooms[m.active_room].n_enemies);
 
   arduboy.setCursor(50, 20);
   arduboy.print(m.active_room);

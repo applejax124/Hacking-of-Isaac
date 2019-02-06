@@ -1,8 +1,8 @@
-#ifndef ENEMY_H
-#define ENEMY_H
-
 #include <Arduboy2.h>
 #include "isaac.h"
+
+#ifndef ENEMY_H
+#define ENEMY_H
 
 const uint8_t PROGMEM fly_bmp[] = {
   0xE1, 0xC0, 0x92, 0x40, 0x9E, 0x40, 0x7F, 0x80,

@@ -1,9 +1,9 @@
-#ifndef ROOM_H
-#define ROOM_H
-
-#include "Arduboy2.h"
+#include <Arduboy2.h>
 #include "isaac.h"
 #include "status.h"
+
+#ifndef ROOM_H
+#define ROOM_H
 
 #define DOOR_WIDTH 16
 #define DOOR_THICKNESS 4
@@ -31,5 +31,7 @@ void draw_room(Arduboy2 * arduboy, Room * r, int top_margin);
 void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies);
 Map create_map();
 void update_room(Arduboy2*, Isaac*, Room*);
+void add_isaac_projectiles(Arduboy2*, Isaac*, Room*);
+void add_hostile_projectiles(Room*, Isaac*);
 
 #endif

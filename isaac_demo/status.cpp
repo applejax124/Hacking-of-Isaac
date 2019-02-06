@@ -14,3 +14,4 @@ void draw_status(Arduboy2 * arduboy, Isaac * i, int height) {
     life_token_x += LIFE_TOKEN_SPACING + life_token_radius * 2;
   }
 }
+
