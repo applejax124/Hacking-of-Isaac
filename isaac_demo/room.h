@@ -24,6 +24,5 @@ typedef struct Map {
 void create_rooms(Map *m, int level[]);
 void draw_room(Arduboy2 * arduboy, Room * r, int top_margin);
 void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies);
-Map create_map();
 
 #endif

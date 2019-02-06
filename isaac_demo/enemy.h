@@ -28,5 +28,6 @@ typedef struct Enemy {
 
 void draw_enemy(Arduboy2 * arduboy, Enemy * e);
 void move_enemy(Enemy*);
+void delete_enemy(Enemy * e, int * num_enemies, const int enemy_index);
 
 #endif

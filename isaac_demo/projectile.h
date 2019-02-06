@@ -21,5 +21,6 @@ void add_isaac_projectiles(Arduboy2*, Isaac*, Room*);
 void add_hostile_projectiles(Room*);
 void move_projectile(Room*);
 void draw_projectile(Arduboy2*, Room*);
+void delete_projectile(Projectile * e, int * num_projectiles, const int projectile_index);
 
 #endif
