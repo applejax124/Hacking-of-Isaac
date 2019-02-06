@@ -19,6 +19,7 @@ typedef struct Projectile {
   int speedx;
   int speedy;
   projectile_type type;
+  bool exists;
 } Projectile;
 
 void move_projectile(Projectile*);

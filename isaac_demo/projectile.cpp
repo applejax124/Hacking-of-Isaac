@@ -4,7 +4,8 @@ void move_projectile(Projectile* p){
 
   if (p->range == 0){   //delete projectile if current range is 0
 
-    //TODO: remove projectile from room list (cami)
+   //remove projectile from room list
+   p->exists = 0;
 
   } else {   //update projectile position
 

@@ -143,8 +143,7 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac, Room *room){
     room->n_isaac_projectiles++; //increment the number of isaac projectiles in the room
     for (int i = 0; i < 4; i++){
 
-      //TODO: figure out what the default value of this is (cami)
-      if (room->isaac_projectiles[i] == NULL){
+      if (!room->isaac_projectiles[i].exists){
 
         //create a new isaac projectile with all the current information
         int xspeed, yspeed;
@@ -160,8 +159,8 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac, Room *room){
           yspeed = isaac->speedy < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
         }
 
-        Projectile p = {isaac->xpos, isaac->ypos, ISAAC_RANGE, xspeed, yspeed, I};
-        room->isaac_projectiles[i] = &p;
+        Projectile p = {isaac->xpos, isaac->ypos, ISAAC_RANGE, xspeed, yspeed, I, 1};
+        room->isaac_projectiles[i] = p;
 
       }
     }
@@ -182,14 +181,13 @@ void add_hostile_projectiles(Room *room, Isaac *isaac){
         room->n_hostile_projectiles++; //increment the number of hostile projectiles in the room
         for (int j = 0; j < 20; j++){
 
-          //TODO: figure out what the default value of this is (cami)
-          if (room->hostile_projectiles[j] == NULL){
+          if (!room->hostile_projectiles[j].exists){
 
             //create a new hostile projectile with all the current information
             int xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
             int yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
-            Projectile p = {room->enemies[j]->xpos, room->enemies[j]->ypos, PROJECTILE_RANGE, xspeed, yspeed, H};
-            room->isaac_projectiles[i] = &p;
+            Projectile p = {room->enemies[j]->xpos, room->enemies[j]->ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
+            room->isaac_projectiles[i] = p;
           }
 
         }
@@ -209,26 +207,28 @@ void update_room(Arduboy2 *arduboy, Isaac *isaac, Room *room){
 
   //update the position for each of the enemies in the room
   for (int i = 0; i < 5; i++){
-    //TODO: check if this is the correct value (cami)
-    if (room->enemies[i] != NULL){
+    if (room->enemies[i].exists){
       move_enemy(room->enemies[i], isaac);
     }
   }
 
   //update the positions of the projectiles in the room
   for (int i = 0; i < 4; i++){
-    //TODO: check if this is the correct value (cami)
-    if (room->isaac_projectiles[i] != NULL){
+    if (room->isaac_projectiles[i].exists){
       move_projectile(room->isaac_projectiles[i]);
     }
   }
 
   for (int i = 0; i < 20; i++){
-    //TODO: check if this is the correct value (cami)
-    if (room->hostile_projectiles[i] != NULL){
+    if (room->hostile_projectiles[i].exists){
       move_projectile(room->hostile_projectiles[i]);
     }
   }
+
+}
+
+//TODO: add enemies to each room in the map
+void add_enemies(Map*){
 
 }
 

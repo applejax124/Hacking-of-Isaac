@@ -33,6 +33,7 @@ typedef struct Enemy {
   enemy_type type; 
   const uint8_t * bmp;
   int life;
+  bool exists;
 } Enemy;
 
 void draw_enemy(Arduboy2 * arduboy, Enemy * e);

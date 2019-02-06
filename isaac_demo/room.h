@@ -9,11 +9,11 @@
 #define DOOR_THICKNESS 4
 
 typedef struct Room {
-  Enemy* enemies[5];
+  Enemy enemies[5];
   int n_enemies;
-  Projectile* isaac_projectiles[4];
+  Projectile isaac_projectiles[4];
   int n_isaac_projectiles;
-  Projectile* hostile_projectiles[20];
+  Projectile hostile_projectiles[20];
   int n_hostile_projectiles;
   int doors[4];
   bool cleared;
@@ -33,5 +33,6 @@ Map create_map();
 void update_room(Arduboy2*, Isaac*, Room*);
 void add_isaac_projectiles(Arduboy2*, Isaac*, Room*);
 void add_hostile_projectiles(Room*, Isaac*);
+void add_enemies(Map*);
 
 #endif
