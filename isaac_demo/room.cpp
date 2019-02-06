@@ -1,7 +1,5 @@
 #include "room.h"
 
-#include "isaac.h"
-
 int LEVEL = 1;
 
 int level1[] = {0, 1, 0, 1, 1, 1, 0, 1, 0};
@@ -29,6 +27,13 @@ void draw_room(Arduboy2 * arduboy, Room * r, int top_margin) {
     arduboy->fillRect(0, (HEIGHT - top_margin)/2 - DOOR_WIDTH/2 + top_margin,
                       DOOR_THICKNESS, DOOR_WIDTH, WHITE);
   }
+
+  //TODO: draw enemies (if not cleared) (cami)
+
+  //TODO: draw isaac (cami)
+
+  //TODO: draw projectiles in the room (cami)
+
 }
 
 
@@ -66,10 +71,12 @@ void create_rooms(Map *m, int level[]) {
     m->rooms[i].doors[2] = i < 6        && m->rooms[i+3].is_in_map ? 1 : 0; // down
     m->rooms[i].doors[3] = i % 3        && m->rooms[i-1].is_in_map ? 1 : 0; // left
   }
+
+  //TODO: generate enemies for each room in the map
+
 }
 
-
-// TODO: The constatnts used mary the system to a 3x3 grid, should abstract.
+// TODO: The constants used mary the system to a 3x3 grid, should abstract.
 // TODO: Isaac should have a built-in reset method.
 void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies) {
   if ((m->rooms[m->active_room].doors[0]) &&
@@ -108,4 +115,35 @@ void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies) {
     m->active_room -= 1;
     update_isaac_position(i, WIDTH-i->xpos - 4*DOOR_THICKNESS, i->ypos);
   }
+}
+
+//update the location of each of the elements in the room
+void update_room(Arduboy2 *arduboy, Isaac *isaac, Room *room){
+
+  //update isaac's position based on button presses
+  move_isaac(arduboy, isaac);
+
+  //update the position for each of the enemies in the room
+  for (int i = 0; i < 5; i++){
+    //TODO: check if this is the correct value (cami)
+    if (room->enemies[i] != NULL){
+      move_enemy(room->enemies[i], isaac);
+    }
+  }
+
+  //update the positions of the projectiles in the room
+  for (int i = 0; i < 4; i++){
+    //TODO: check if this is the correct value (cami)
+    if (room->isaac_projectiles[i] != NULL){
+      move_projectile(room->isaac_projectiles[i]);
+    }
+  }
+
+  for (int i = 0; i < 20; i++){
+    //TODO: check if this is the correct value (cami)
+    if (room->hostile_projectiles[i] != NULL){
+      move_projectile(room->hostile_projectiles[i]);
+    }
+  }
+
 }

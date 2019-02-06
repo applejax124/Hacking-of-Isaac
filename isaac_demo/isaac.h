@@ -1,11 +1,16 @@
-#include <Arduboy2.h>
-
-
 #ifndef ISAAC_H
 #define ISAAC_H
 
+#include <Arduboy2.h>
+#include "status.h"
+
 #define ISAAC_HEIGHT 16
 #define ISAAC_WIDTH 16
+
+#define ISAAC_SPEEDX 2
+#define ISAAC_SPEEDY 2
+
+#define ISAAC_LIVES 3
 
 const uint8_t PROGMEM isaac_bmp[] = {
   0x07, 0xE0, 0x0D, 0xB0, 0x1B, 0xD8, 0x39, 0x9C, 
@@ -18,8 +23,6 @@ typedef struct Isaac {
   int ypos;
   int height; 
   int width;
-  int speedx;
-  int speedy;
   const uint8_t * bmp;
   int life;
 } Isaac;
@@ -27,6 +30,5 @@ typedef struct Isaac {
 void draw_isaac(Arduboy2 * arduboy, Isaac * isaac);
 void move_isaac(Arduboy2 * arduboy, Isaac * isaac);
 void update_isaac_position(Isaac * i, int x_pos, int y_pos);
-
 
 #endif
