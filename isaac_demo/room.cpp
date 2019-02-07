@@ -31,8 +31,8 @@ void draw_room(Arduboy2 * arduboy, Room * r, Isaac *isaac, int top_margin) {
   //draw enemies (if room not cleared)
   if (!r->cleared){
     for (int i = 0; i < 5; i++){
-      if (r->enemies[i] != NULL){
-        draw_enemy(arduboy, r->enemies[i]);
+      if (r->enemies[i].exists){
+        draw_enemy(arduboy, &r->enemies[i]);
       }
     }
   }
@@ -42,14 +42,14 @@ void draw_room(Arduboy2 * arduboy, Room * r, Isaac *isaac, int top_margin) {
 
   //draw projectiles
   for (int i = 0; i < 4; i++){
-    if (r->isaac_projectiles[i] != NULL){
-      draw_projectile(arduboy, r->isaac_projectiles[i])
+    if (r->isaac_projectiles[i].exists){
+      draw_projectile(arduboy, &r->isaac_projectiles[i]);
     }
   }
 
   for (int i = 0; i < 20; i++){
-    if (r->hostile_projectiles[i] != NULL){
-      draw_projectile(arduboy, r->hostile_projectiles[i])
+    if (r->hostile_projectiles[i].exists){
+      draw_projectile(arduboy, &r->hostile_projectiles[i]);
     }
   }
 
@@ -171,11 +171,11 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac, Room *room){
 void add_hostile_projectiles(Room *room, Isaac *isaac){
 
   for (int i = 0; i < 5; i++){
-    if (room->enemies[i]->type == P){   //only if the current enemy is a pooter
+    if (room->enemies[i].type == P){   //only if the current enemy is a pooter
 
       //check if isaac is within range of a pooter dart and max projectiles note reached
-      int xdiff = isaac->xpos - room->enemies[i]->xpos;
-      int ydiff = isaac->ypos - room->enemies[i]->ypos;
+      int xdiff = isaac->xpos - room->enemies[i].xpos;
+      int ydiff = isaac->ypos - room->enemies[i].ypos;
       if (xdiff <= PROJECTILE_RANGE || ydiff <= PROJECTILE_RANGE && room->n_hostile_projectiles < 20){
 
         room->n_hostile_projectiles++; //increment the number of hostile projectiles in the room
@@ -186,7 +186,7 @@ void add_hostile_projectiles(Room *room, Isaac *isaac){
             //create a new hostile projectile with all the current information
             int xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
             int yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
-            Projectile p = {room->enemies[j]->xpos, room->enemies[j]->ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
+            Projectile p = {room->enemies[j].xpos, room->enemies[j].ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
             room->isaac_projectiles[i] = p;
           }
 
@@ -208,20 +208,20 @@ void update_room(Arduboy2 *arduboy, Isaac *isaac, Room *room){
   //update the position for each of the enemies in the room
   for (int i = 0; i < 5; i++){
     if (room->enemies[i].exists){
-      move_enemy(room->enemies[i], isaac);
+      move_enemy(&room->enemies[i], isaac);
     }
   }
 
   //update the positions of the projectiles in the room
   for (int i = 0; i < 4; i++){
     if (room->isaac_projectiles[i].exists){
-      move_projectile(room->isaac_projectiles[i]);
+      move_projectile(&room->isaac_projectiles[i]);
     }
   }
 
   for (int i = 0; i < 20; i++){
     if (room->hostile_projectiles[i].exists){
-      move_projectile(room->hostile_projectiles[i]);
+      move_projectile(&room->hostile_projectiles[i]);
     }
   }
 

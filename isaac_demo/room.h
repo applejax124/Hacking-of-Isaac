@@ -1,6 +1,8 @@
 #include <Arduboy2.h>
 #include "isaac.h"
 #include "status.h"
+#include "enemy.h"
+#include "projectile.h"
 
 #ifndef ROOM_H
 #define ROOM_H

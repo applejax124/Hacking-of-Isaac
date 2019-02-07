@@ -1,5 +1,4 @@
 #include <Arduboy2.h>
-#include "status.h"
 
 #ifndef ISAAC_H
 #define ISAAC_H

@@ -1,4 +1,5 @@
 #include "isaac.h"
+#include "status.h"
 
 void move_isaac(Arduboy2 * arduboy, Isaac * isaac){
 
