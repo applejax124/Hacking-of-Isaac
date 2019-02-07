@@ -22,8 +22,8 @@ typedef struct Isaac {
   uint8_t ypos;
   const uint8_t height;
   const uint8_t width;
-  uint8_t speedx;
-  uint8_t speedy;
+  int speedx;
+  int speedy;
   const uint8_t * bmp;
   uint8_t life;
   uint8_t invincible;

@@ -9,14 +9,6 @@
 
 Arduboy2 arduboy;
 
-int tear_range = 0;
-int tear_max_range = 12;
-int tear_x = -1;
-int tear_y = -1;
-int tear_dx = 1;
-int tear_dy = 0;
-
-
 Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2, 1};
 Enemy p1 = {30, 30, 11, 9, 0, 0, P, pooter_bmp, 3, 1};
 // TODO: the code currently assumes enemey lists will follow a pattern
@@ -28,28 +20,35 @@ int isaac_projectile_count = 0;
 Projectile hostile_projectiles[20];
 int hostile_projectile_count = 0;
 
-Isaac isaac = {40, 40, ISAAC_HEIGHT, ISAAC_WIDTH, 2, 2, isaac_bmp, 3};
+Isaac isaac = {60, 40, ISAAC_HEIGHT, ISAAC_WIDTH, 2, 2, isaac_bmp, 3};
 Map m = create_map();
 
 
-/*
- * 
- * SETUP FUNCTION
- * 
- */
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
-  //enemies[0] = f1;
+  //instantiate enemies
+  for (int i = 0; i < 5; i++){
+    Enemy e;
+    e.exists = 0;
+    enemies[i] = e;
+  }
   enemies[0] = p1;
-  enemy_count = 2;
+  enemy_count = 1;
+
+  //instantiate projectiles
+  for (int i = 0; i < 4; i++){
+    Projectile p;
+    p.exists = 0;
+    isaac_projectiles[i] = p;
+  }
+  for (int i = 0; i < 20; i++){
+    Projectile p;
+    p.exists = 0;
+    hostile_projectiles[i] = p;
+  }
 }
 
-/*
- * 
- * LOOP FUNCTION
- * 
- */
 void loop() {
   if (!(arduboy.nextFrame())) {
     return;
@@ -71,13 +70,13 @@ void loop() {
 
   for (int i = 0; i < 4; i++){
     if (isaac_projectiles[i].exists){
-      move_projectile(&isaac_projectiles[i]);
+      move_projectile(&isaac_projectiles[i], &isaac_projectile_count);
     }
   }
 
   for (int i = 0; i < 20; i++){
     if (hostile_projectiles[i].exists){
-      move_projectile(&hostile_projectiles[i]);
+      move_projectile(&hostile_projectiles[i], &hostile_projectile_count);
     }
   }
 
@@ -117,42 +116,15 @@ void loop() {
 
   if(isaac.invincible) isaac.invincible -= 1;
 
+  if (isaac.life == 0){
+    arduboy.clear();
+    arduboy.setCursor(20, 30);
+    arduboy.print("I DED (RIP SAD)");
+    arduboy.display();
+    while (1){}
+  }
+  arduboy.setCursor(10,10);
+  //arduboy.print(enemy_count);
+  arduboy.print(enemies[0].xpos);
   arduboy.display();
-}
-
-
-/*
- * Draw Projectiles
- */
-
-void draw_projectiles() {
-
-  // 
-  
-  // for now, only allowing 1 tear on screen at a time
-  if (arduboy.pressed(B_BUTTON)) {
-    tear_x = isaac.xpos + 8 + tear_dx;
-    tear_y = isaac.ypos + 8 + tear_dy;
-  }
-
-  if (tear_x == -1) {
-    return;
-  }
-
-  tear_range += 1;
-  tear_x += 3*tear_dx;
-  tear_y += 3*tear_dy;
-
-  // check if tear is old/out of bounds
-  if (!in_bounds(tear_x, tear_y, 0) || tear_range >= tear_max_range) {
-    tear_range = 0;
-    tear_x = -1;
-    tear_y = -1;
-  }
-
-    arduboy.drawCircle(tear_x, tear_y, 1, WHITE);
-}
-
-bool in_bounds(int x, int y, int pad) {
-  return x - pad > 0 and x + pad < WIDTH and y - pad > 0 and y + pad < WIDTH;
 }
