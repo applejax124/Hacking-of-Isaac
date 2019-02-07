@@ -48,6 +48,8 @@ void loop() {
   arduboy.clear();
 
   move_isaac(&arduboy, &isaac);
+  add_isaac_projectiles(&arduboy, &isaac, isaac_projectiles,
+                        &isaac_projectile_count);
   check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, enemy_count);
 
   for (int i = 0; i < 5; i++){
