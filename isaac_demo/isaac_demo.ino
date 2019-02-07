@@ -17,8 +17,8 @@ int tear_dx = 1;
 int tear_dy = 0;
 
 
-Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2};
-Enemy p1 = {30, 30, 11, 9, 1, 1, P, pooter_bmp, 3};
+Enemy f1 = {20, 20, 6, 10, 1, 1, F, fly_bmp, 2, 1};
+Enemy p1 = {30, 30, 11, 9, 0, 0, P, pooter_bmp, 3, 1};
 // TODO: the code currently assumes enemey lists will follow a pattern
 //        of tracking size with a seperate integer.
 Enemy enemies[5];
@@ -40,6 +40,9 @@ Map m = create_map();
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
+  enemies[0] = f1;
+  enemies[1] = p1;
+  enemy_count = 2;
 }
 
 /*
@@ -89,8 +92,6 @@ void loop() {
   check_enemies_to_isaac_collision(&arduboy, &isaac, enemies,
                                         &enemy_count);
 
-  draw_enemy(&arduboy, &f1);
-  draw_enemy(&arduboy, &p1);
   draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
   draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
   draw_isaac(&arduboy, &isaac);
@@ -112,11 +113,9 @@ void loop() {
     }
   }
 
-  arduboy.setCursor(50, 20);
-  arduboy.print(m.active_room);
+  if(isaac.invincible) isaac.invincible -= 1;
 
   arduboy.display();
-
 }
 
 

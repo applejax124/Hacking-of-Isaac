@@ -44,7 +44,10 @@ void check_enemies_to_isaac_collision(Arduboy2 * a,
   for (int p_index = 0; p_index < (*num_enemies); p_index++) {
     if (check_enemy_to_isaac_collision(a, isaac, 
                                           &enemies[p_index])) {
-      isaac->life -= 1;
+      if (isaac->life > 0 && !isaac->invincible) {
+        isaac->life -= 1;
+        isaac->invincible = 25;
+      }
     }
   }
 }
@@ -53,31 +56,26 @@ bool check_projectile_to_enemy_collision(Arduboy2 * a,
                                          Enemy * enemy,
                                          Projectile * projectile) {
   return a->collide(Rect{enemy->xpos, enemy->ypos,
-                          (uint8_t)(enemy->xpos+enemy->width),
-                          (uint8_t)(enemy->ypos-enemy->height)},
+                          enemy->width, enemy->height},
                         Rect{projectile->xpos, projectile->ypos,
-                          (uint8_t)(projectile->xpos+1),
-                          (uint8_t)(projectile->ypos-1)});
+                          1, 1});
 }
 
 bool check_projectile_to_isaac_collision(Arduboy2 * a,
                                          Isaac * isaac,
                                          Projectile * projectile) {
   return a->collide(Rect{isaac->xpos, isaac->ypos,
-                          isaac->xpos+isaac->width,
-                          isaac->ypos-isaac->height},
+                          isaac->width,
+                          isaac->height},
                         Rect{projectile->xpos, projectile->ypos,
-                          projectile->xpos+1,
-                          projectile->ypos-1});
+                          1, 1});
 }
 
 bool check_enemy_to_isaac_collision(Arduboy2 * a,
                                     Isaac * isaac,
                                     Enemy * enemy) {
   return a->collide(Rect{isaac->xpos, isaac->ypos,
-                          isaac->xpos+isaac->width,
-                          isaac->ypos-isaac->height},
+                          isaac->width, isaac->height},
                         Rect{enemy->xpos, enemy->ypos,
-                          enemy->xpos+enemy->width,
-                          enemy->ypos-enemy->height});
+                          enemy->width, enemy->height});
 }
