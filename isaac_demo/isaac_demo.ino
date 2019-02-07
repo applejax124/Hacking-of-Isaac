@@ -94,8 +94,13 @@ void loop() {
     }
   }
 
-  //arduboy.setCursor(50, 20);
-  //arduboy.print(m.active_room);
+  if (isaac.life == 0){
+    arduboy.clear();
+    arduboy.setCursor(20, 30);
+    arduboy.print("I DED (RIP SAD)");
+    arduboy.display();
+    while (1){}
+  }
 
   arduboy.display();
 
