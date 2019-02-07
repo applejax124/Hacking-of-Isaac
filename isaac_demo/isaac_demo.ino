@@ -23,6 +23,25 @@ Map m = create_map();
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
+
+  //instantiate enemies
+  for (int i = 0; i < 5; i++){
+    Enemy e;
+    e.exists = 0;
+    enemies[i] = e;
+  }
+
+  //instantiate projectiles
+  for (int i = 0; i < 4; i++){
+    Projectile p;
+    p.exists = 0;
+    isaac_projectiles[i] = p;
+  }
+  for (int i = 0; i < 20; i++){
+    Projectile p;
+    p.exists = 0;
+    hostile_projectiles[i] = p;
+  }
 }
 
 void loop() {
@@ -32,6 +51,8 @@ void loop() {
   arduboy.clear();
 
   move_isaac(&arduboy, &isaac);
+  add_isaac_projectiles(&arduboy, &isaac, isaac_projectiles,
+                        &isaac_projectile_count);
   check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, enemy_count);
 
   for (int i = 0; i < 5; i++){
@@ -42,18 +63,16 @@ void loop() {
 
   for (int i = 0; i < 4; i++){
     if (isaac_projectiles[i].exists){
-      move_projectile(&isaac_projectiles[i]);
+      move_projectile(&isaac_projectiles[i], &isaac_projectile_count);
     }
   }
 
   for (int i = 0; i < 20; i++){
     if (hostile_projectiles[i].exists){
-      move_projectile(&hostile_projectiles[i]);
+      move_projectile(&hostile_projectiles[i], &hostile_projectile_count);
     }
   }
 
-  draw_enemy(&arduboy, &f1);
-  draw_enemy(&arduboy, &p1);
   draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
   draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
   draw_isaac(&arduboy, &isaac);
@@ -75,10 +94,9 @@ void loop() {
     }
   }
 
-  arduboy.setCursor(50, 20);
-  arduboy.print(m.active_room);
+  //arduboy.setCursor(50, 20);
+  //arduboy.print(m.active_room);
 
   arduboy.display();
 
 }
-

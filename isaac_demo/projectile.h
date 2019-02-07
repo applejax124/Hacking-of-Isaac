@@ -22,7 +22,7 @@ typedef struct Projectile {
   bool exists;
 } Projectile;
 
-void move_projectile(Projectile*);
+void move_projectile(Projectile*, int*);
 void draw_projectile(Arduboy2*, Projectile*);
 
 #endif
