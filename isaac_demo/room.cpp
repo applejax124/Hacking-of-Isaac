@@ -66,8 +66,6 @@ void create_rooms(Map *m, int level[]) {
     m->rooms[i].doors[3] = i % 3        && m->rooms[i-1].is_in_map ? 1 : 0; // left
   }
 
-  //TODO: generate enemies for each room in the map
-
 }
 
 // TODO: The constants used mary the system to a 3x3 grid, should abstract.
@@ -170,11 +168,6 @@ void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile
 
     }
   }
-
-}
-
-//TODO: add enemies to each room in the map
-void add_enemies(Map*){
 
 }
 

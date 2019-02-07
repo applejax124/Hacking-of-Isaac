@@ -23,6 +23,22 @@ Map m = create_map();
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
+
+  //instantiate enemies
+  for (int i = 0; i < 5; i++){
+    Enemy e = {.exists = 0};
+    enemies[i] = e;
+  }
+
+  //instantiate projectiles
+  for (int i = 0; i < 4; i++){
+    Projectile p = {.exists = 0};
+    isaac_projectiles[i] = p;
+  }
+  for (int i = 0; i < 20; i++){
+    Projectile p = {.exists = 0};
+    hostile_projectiles[i] = p;
+  }
 }
 
 void loop() {
