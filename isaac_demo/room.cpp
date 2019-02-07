@@ -127,7 +127,7 @@ void add_enemies(Map *m, int *num_enemies, Enemy *enemies, Isaac *i) {
     Enemy e;
     e.xpos = i->xpos + random(50) % 128;
     e.ypos = i->ypos + random(30) % 64;
-    if (random(1)) {
+    if (random(100) % 2) {
       e.type = F;
       e.bmp = fly_bmp;
       e.life = FLY_LIVES;
@@ -188,8 +188,7 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac * isaac, Projectile * isaac_
 void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile_projectiles, int * n_hostile_projectiles){
 
   for (int i = 0; i < 5; i++){
-    if (enemies[i].type == P){   //only if the current enemy is a pooter
-
+    if (enemies[i].type == P && enemies[i].cooldown <= 0){   //only if the current enemy is a pooter
       //check if isaac is within range of a pooter dart and max projectiles note reached
       int xdiff = isaac->xpos - enemies[i].xpos;
       int ydiff = isaac->ypos - enemies[i].ypos;
@@ -204,6 +203,7 @@ void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile
             uint8_t xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
             uint8_t yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
             Projectile p = {enemies[i].xpos, enemies[i].ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
+            enemies[i].cooldown = 30;
             hostile_projectiles[j] = p;
             break;
           }

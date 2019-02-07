@@ -98,8 +98,6 @@ void loop() {
   draw_isaac(&arduboy, &isaac);
   
   //draw enemies (if room not cleared)
-  arduboy.setCursor(20, 30);
-  arduboy.print(enemy_count);
   for (int i = 0; i < 5; i++){
     if (enemies[i].exists){
       draw_enemy(&arduboy, &enemies[i]);
@@ -117,6 +115,11 @@ void loop() {
   }
 
   if(isaac.invincible) isaac.invincible -= 1;
+  for (int i = 0; i < 5; i++){
+    if (enemies[i].exists && enemies[i].cooldown){
+      enemies[i].cooldown -= 1;
+    }
+  }
 
   if (isaac.life == 0){
     arduboy.clear();
@@ -125,8 +128,5 @@ void loop() {
     arduboy.display();
     while (1){}
   }
-  arduboy.setCursor(10,10);
-  //arduboy.print(enemy_count);
-  arduboy.print(enemies[0].xpos);
   arduboy.display();
 }

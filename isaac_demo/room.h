@@ -34,6 +34,7 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac,
                             Projectile * isaac_projectiles,
                             int * n_isaac_projectiles);
 void add_hostile_projectiles(Isaac *isaac,
+                            Enemy *enemies,
                              Projectile * hostile_projectiles,
                              int * n_hostile_projectiles);
 void add_enemies(Map*, int *, Enemy *, Isaac *);

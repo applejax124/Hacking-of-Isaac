@@ -34,6 +34,7 @@ typedef struct Enemy {
   const uint8_t * bmp;
   uint8_t life;
   bool exists;
+  uint8_t cooldown;
 } Enemy;
 
 void draw_enemy(Arduboy2 * arduboy, Enemy * e);
