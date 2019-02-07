@@ -18,12 +18,12 @@ const uint8_t PROGMEM isaac_bmp[] = {
   0x1F, 0xF8, 0x07, 0xE0, 0x07, 0xE0, 0x06, 0x60};
 
 typedef struct Isaac {
-  int xpos;
-  int ypos;
+  uint8_t xpos;
+  uint8_t ypos;
   const uint8_t height;
   const uint8_t width;
-  int speedx;
-  int speedy;
+  uint8_t speedx;
+  uint8_t speedy;
   const uint8_t * bmp;
   uint8_t life;
 } Isaac;

@@ -13,11 +13,11 @@
 typedef enum projectile_type {I, H} projectile_type;
 
 typedef struct Projectile {
-  int xpos;
-  int ypos;
-  int range;
-  int speedx;
-  int speedy;
+  uint8_t xpos;
+  uint8_t ypos;
+  uint8_t range;
+  uint8_t speedx;
+  uint8_t speedy;
   projectile_type type;
   bool exists;
 } Projectile;

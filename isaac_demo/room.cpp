@@ -121,7 +121,7 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac, Projectile * isaac_p
       if (!isaac_projectiles[i].exists){
 
         //create a new isaac projectile with all the current information
-        int xspeed, yspeed;
+        uint8_t xspeed, yspeed;
         if (isaac->speedx == 0) {
           xspeed = 0;
         } else {
@@ -158,8 +158,8 @@ void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile
           if (!hostile_projectiles[j].exists){
 
             //create a new hostile projectile with all the current information
-            int xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
-            int yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
+            uint8_t xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
+            uint8_t yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
             Projectile p = {enemies[j].xpos, enemies[j].ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
             hostile_projectiles[i] = p;
           }

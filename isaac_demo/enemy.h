@@ -24,15 +24,15 @@ typedef enum enemy_type {F, P} enemy_type;
 #define FLY_LIVES   1   //flies only have 1 life
 
 typedef struct Enemy {
-  int xpos;
-  int ypos;
-  int height;
-  int width;
-  int speedx;
-  int speedy;
+  uint8_t xpos;
+  uint8_t ypos;
+  uint8_t height;
+  uint8_t width;
+  uint8_t speedx;
+  uint8_t speedy;
   enemy_type type; 
   const uint8_t * bmp;
-  int life;
+  uint8_t life;
   bool exists;
 } Enemy;
 

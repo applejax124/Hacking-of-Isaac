@@ -53,11 +53,11 @@ bool check_projectile_to_enemy_collision(Arduboy2 * a,
                                          Enemy * enemy,
                                          Projectile * projectile) {
   return a->collide(Rect{enemy->xpos, enemy->ypos,
-                          enemy->xpos+enemy->width,
-                          enemy->ypos-enemy->height},
+                          (uint8_t)(enemy->xpos+enemy->width),
+                          (uint8_t)(enemy->ypos-enemy->height)},
                         Rect{projectile->xpos, projectile->ypos,
-                          projectile->xpos+projectile->width,
-                          projectile->ypos-projectile->height});
+                          (uint8_t)(projectile->xpos+1),
+                          (uint8_t)(projectile->ypos-1)});
 }
 
 bool check_projectile_to_isaac_collision(Arduboy2 * a,
@@ -67,8 +67,8 @@ bool check_projectile_to_isaac_collision(Arduboy2 * a,
                           isaac->xpos+isaac->width,
                           isaac->ypos-isaac->height},
                         Rect{projectile->xpos, projectile->ypos,
-                          projectile->xpos+projectile->width,
-                          projectile->ypos-projectile->height});
+                          projectile->xpos+1,
+                          projectile->ypos-1});
 }
 
 bool check_enemy_to_isaac_collision(Arduboy2 * a,
