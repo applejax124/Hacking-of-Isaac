@@ -152,7 +152,7 @@ void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile
       int ydiff = isaac->ypos - enemies[i].ypos;
       if (xdiff <= PROJECTILE_RANGE || ydiff <= PROJECTILE_RANGE && *n_hostile_projectiles < 20){
 
-        *n_hostile_projectiles++; //increment the number of hostile projectiles in the room
+        *n_hostile_projectiles += 1; //increment the number of hostile projectiles in the room
         for (int j = 0; j < 20; j++){
 
           if (!hostile_projectiles[j].exists){
@@ -160,8 +160,9 @@ void add_hostile_projectiles(Isaac *isaac, Enemy * enemies, Projectile * hostile
             //create a new hostile projectile with all the current information
             uint8_t xspeed = xdiff < 0 ? -1 * PROJECTILE_SPEEDX : PROJECTILE_SPEEDX;
             uint8_t yspeed = ydiff < 0 ? -1 * PROJECTILE_SPEEDY : PROJECTILE_SPEEDY;
-            Projectile p = {enemies[j].xpos, enemies[j].ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
-            hostile_projectiles[i] = p;
+            Projectile p = {enemies[i].xpos, enemies[i].ypos, PROJECTILE_RANGE, xspeed, yspeed, H, 1};
+            hostile_projectiles[j] = p;
+            break;
           }
 
         }

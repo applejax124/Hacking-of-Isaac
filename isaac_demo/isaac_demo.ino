@@ -40,8 +40,8 @@ Map m = create_map();
 void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
-  enemies[0] = f1;
-  enemies[1] = p1;
+  //enemies[0] = f1;
+  enemies[0] = p1;
   enemy_count = 2;
 }
 
@@ -66,6 +66,8 @@ void loop() {
       move_enemy(&enemies[i], &isaac);
     }
   }
+  add_hostile_projectiles(&isaac, enemies, hostile_projectiles,
+                        &hostile_projectile_count);
 
   for (int i = 0; i < 4; i++){
     if (isaac_projectiles[i].exists){
@@ -86,8 +88,8 @@ void loop() {
                                         &isaac_projectile_count);
 
   check_projectiles_to_isaac_collision(&arduboy, &isaac,
-                                        isaac_projectiles,
-                                        &isaac_projectile_count);
+                                        hostile_projectiles,
+                                        &hostile_projectile_count);
 
   check_enemies_to_isaac_collision(&arduboy, &isaac, enemies,
                                         &enemy_count);

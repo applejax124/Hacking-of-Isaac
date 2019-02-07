@@ -32,7 +32,10 @@ void check_projectiles_to_isaac_collision(Arduboy2 * a,
     if (check_projectile_to_isaac_collision(a, isaac, 
                                           &projectiles[p_index])) {
       delete_projectile(projectiles, num_projectiles, p_index);
-      (*isaac).life -= 1;
+      if (isaac->life > 0 && !isaac->invincible) {
+        isaac->life -= 1;
+        isaac->invincible = 25;
+      }
     }
   }
 }
