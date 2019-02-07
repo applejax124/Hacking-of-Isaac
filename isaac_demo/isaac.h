@@ -25,7 +25,7 @@ typedef struct Isaac {
   int speedx;
   int speedy;
   const uint8_t * bmp;
-  const uint8_t life;
+  uint8_t life;
 } Isaac;
 
 void draw_isaac(Arduboy2 * arduboy, Isaac * isaac);

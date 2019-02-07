@@ -24,5 +24,7 @@ typedef struct Projectile {
 
 void move_projectile(Projectile*);
 void draw_projectile(Arduboy2*, Projectile*);
+void delete_projectile(Projectile * e, int * num_projectiles,
+                        const int projectile_index);
 
 #endif
