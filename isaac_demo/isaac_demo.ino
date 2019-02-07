@@ -76,6 +76,19 @@ void loop() {
     }
   }
 
+  // COLLISIONS
+  check_projectiles_to_enemies_collision(&arduboy, enemies,
+                                        &enemy_count,
+                                        isaac_projectiles,
+                                        &isaac_projectile_count);
+
+  check_projectiles_to_isaac_collision(&arduboy, &isaac,
+                                        isaac_projectiles,
+                                        &isaac_projectile_count);
+
+  check_enemies_to_isaac_collision(&arduboy, &isaac, enemies,
+                                        &enemy_count);
+
   draw_enemy(&arduboy, &f1);
   draw_enemy(&arduboy, &p1);
   draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
