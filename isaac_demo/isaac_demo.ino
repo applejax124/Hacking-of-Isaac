@@ -53,7 +53,7 @@ void loop() {
   move_isaac(&arduboy, &isaac);
   add_isaac_projectiles(&arduboy, &isaac, isaac_projectiles,
                         &isaac_projectile_count);
-  check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, enemy_count);
+  check_use_door(&m, &isaac, STATUS_BAR_HEIGHT, &enemy_count, enemies);
 
   for (int i = 0; i < 5; i++){
     if (enemies[i].exists){
@@ -78,6 +78,8 @@ void loop() {
   draw_isaac(&arduboy, &isaac);
   
   //draw enemies (if room not cleared)
+  arduboy.setCursor(20, 30);
+  arduboy.print(enemy_count);
   for (int i = 0; i < 5; i++){
     if (enemies[i].exists){
       draw_enemy(&arduboy, &enemies[i]);

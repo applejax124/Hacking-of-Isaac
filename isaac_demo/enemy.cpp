@@ -6,6 +6,7 @@ void draw_enemy(Arduboy2 * arduboy, Enemy * e){
 
 }
 
+
 void move_enemy(Enemy *enemy, Isaac *isaac){
 
   int xdiff = isaac->xpos - enemy->xpos;
