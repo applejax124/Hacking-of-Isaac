@@ -1,11 +1,12 @@
 #include "projectile.h"
 
-void move_projectile(Projectile* p){
+void move_projectile(Projectile* p, int * count){
 
   if (p->range == 0){   //delete projectile if current range is 0
 
-   //remove projectile from room list
-   p->exists = 0;
+    //remove projectile from room list
+    p->exists = 0;
+    *count--;
 
   } else {   //update projectile position
 
@@ -26,5 +27,3 @@ void draw_projectile(Arduboy2 *arduboy, Projectile* p){
   }
 
 }
-
-

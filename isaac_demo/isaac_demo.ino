@@ -26,17 +26,20 @@ void setup() {
 
   //instantiate enemies
   for (int i = 0; i < 5; i++){
-    Enemy e = {.exists = 0};
+    Enemy e;
+    e.exists = 0;
     enemies[i] = e;
   }
 
   //instantiate projectiles
   for (int i = 0; i < 4; i++){
-    Projectile p = {.exists = 0};
+    Projectile p;
+    p.exists = 0;
     isaac_projectiles[i] = p;
   }
   for (int i = 0; i < 20; i++){
-    Projectile p = {.exists = 0};
+    Projectile p;
+    p.exists = 0;
     hostile_projectiles[i] = p;
   }
 }
@@ -60,13 +63,13 @@ void loop() {
 
   for (int i = 0; i < 4; i++){
     if (isaac_projectiles[i].exists){
-      move_projectile(&isaac_projectiles[i]);
+      move_projectile(&isaac_projectiles[i], &isaac_projectile_count);
     }
   }
 
   for (int i = 0; i < 20; i++){
     if (hostile_projectiles[i].exists){
-      move_projectile(&hostile_projectiles[i]);
+      move_projectile(&hostile_projectiles[i], &hostile_projectile_count);
     }
   }
 
@@ -91,8 +94,8 @@ void loop() {
     }
   }
 
-  arduboy.setCursor(50, 20);
-  arduboy.print(m.active_room);
+  //arduboy.setCursor(50, 20);
+  //arduboy.print(m.active_room);
 
   arduboy.display();
 
