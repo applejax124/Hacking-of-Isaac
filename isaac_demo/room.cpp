@@ -70,42 +70,82 @@ void create_rooms(Map *m, int level[]) {
 
 // TODO: The constants used mary the system to a 3x3 grid, should abstract.
 // TODO: Isaac should have a built-in reset method.
-void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies) {
+void check_use_door(Map * m, Isaac * i, int top_margin, int *num_enemies, Enemy *enemies) {
   if ((m->rooms[m->active_room].doors[0]) &&
       (i->xpos + ISAAC_WIDTH > WIDTH/2 - DOOR_WIDTH/2) &&
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
       (i->ypos < top_margin + DOOR_THICKNESS) &&
-      (num_enemies < 1) &&
+      (*num_enemies < 1) &&
       (m->active_room > 2)) {
     m->active_room -= 3;
     update_isaac_position(i, i->xpos, HEIGHT-i->ypos - 2*DOOR_THICKNESS);
+    if (!m->rooms[m->active_room].cleared) {
+      add_enemies(m, num_enemies, enemies, i);
+    }
   }
   if ((m->rooms[m->active_room].doors[1]) &&
       (i->ypos + ISAAC_HEIGHT > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) &&
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
       (i->xpos + ISAAC_WIDTH > WIDTH - DOOR_THICKNESS) &&
-      (num_enemies < 1) &&
+      (*num_enemies < 1) &&
       (m->active_room < 8)) {
     m->active_room += 1;
     update_isaac_position(i, WIDTH-i->xpos + DOOR_THICKNESS, i->ypos);
+    if (!m->rooms[m->active_room].cleared) {
+      add_enemies(m, num_enemies, enemies, i);
+    }
   }
   if ((m->rooms[m->active_room].doors[2]) &&
       (i->xpos + ISAAC_WIDTH > WIDTH/2 - DOOR_WIDTH/2) &&
       (i->xpos < WIDTH/2 + DOOR_WIDTH/2) &&
       (i->ypos + ISAAC_HEIGHT > HEIGHT - DOOR_THICKNESS) &&
-      (num_enemies < 1) &&
+      (*num_enemies < 1) &&
       (m->active_room < 6)) {
     m->active_room += 3;
     update_isaac_position(i, i->xpos, HEIGHT-i->ypos + DOOR_THICKNESS);
+    if (!m->rooms[m->active_room].cleared) {
+      add_enemies(m, num_enemies, enemies, i);
+    }
   }
   if ((m->rooms[m->active_room].doors[3]) &&
       (i->ypos + ISAAC_HEIGHT > HEIGHT/2 - DOOR_WIDTH/2 + top_margin/2) &&
       (i->ypos < HEIGHT/2 + DOOR_WIDTH/2 + top_margin/2) &&
       (i->xpos < DOOR_THICKNESS) &&
-      (num_enemies < 1) &&
+      (*num_enemies < 1) &&
       (m->active_room > 0)) {
     m->active_room -= 1;
     update_isaac_position(i, WIDTH-i->xpos - 4*DOOR_THICKNESS, i->ypos);
+    if (!m->rooms[m->active_room].cleared) {
+      add_enemies(m, num_enemies, enemies, i);
+    }
+  }
+}
+
+void add_enemies(Map *m, int *num_enemies, Enemy *enemies, Isaac *i) {
+  for (int r = 0; r < random(5); r++) {
+    (*num_enemies)++;
+    Enemy e;
+    e.xpos = i->xpos + random(50) % 128;
+    e.ypos = i->ypos + random(30) % 64;
+    if (random(1)) {
+      e.type = F;
+      e.bmp = fly_bmp;
+      e.life = FLY_LIVES;
+      e.speedx = FLY_SPEEDX;
+      e.speedy = FLY_SPEEDY;
+      e.width = 10;
+      e.height = 6;
+    } else {
+      e.type = P;
+      e.bmp = pooter_bmp;
+      e.life = POOTER_LIVES;
+      e.speedx = POOTER_SPEEDX;
+      e.speedy = POOTER_SPEEDY;
+      e.width = 9;
+      e.height = 11;
+    }
+    e.exists = 1;
+    enemies[r] = e;
   }
 }
 

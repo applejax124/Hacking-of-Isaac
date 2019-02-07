@@ -6,11 +6,11 @@ void move_projectile(Projectile* p, int * count){
 
     //remove projectile from room list
     p->exists = 0;
-    *count--;
+    *count -= 1;
 
   } else {   //update projectile position
 
-    p->range--;
+    p->range -= 1;
     p->xpos += p->speedx;
     p->ypos += p->speedy;
 

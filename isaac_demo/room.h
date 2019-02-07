@@ -27,7 +27,7 @@ typedef struct Map {
 
 void create_rooms(Map *m, int level[]);
 void draw_room(Arduboy2 * arduboy, Room * r, int top_margin);
-void check_use_door(Map * m, Isaac * i, int top_margin, int num_enemies);
+void check_use_door(Map * m, Isaac * i, int top_margin, int *num_enemies, Enemy *enemies);
 Map create_map();
 void update_room(Arduboy2*, Isaac*, Room*);
 void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac,
@@ -36,6 +36,6 @@ void add_isaac_projectiles(Arduboy2 *arduboy, Isaac *isaac,
 void add_hostile_projectiles(Isaac *isaac,
                              Projectile * hostile_projectiles,
                              int * n_hostile_projectiles);
-void add_enemies(Map*);
+void add_enemies(Map*, int *, Enemy *, Isaac *);
 
 #endif
