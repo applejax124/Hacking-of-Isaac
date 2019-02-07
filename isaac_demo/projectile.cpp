@@ -27,4 +27,11 @@ void draw_projectile(Arduboy2 *arduboy, Projectile* p){
 
 }
 
-
+void delete_projectile(Projectile * e, int * num_projectiles,
+                        const int projectile_index) {
+  e[projectile_index].exists = 0;
+  *num_projectiles -= 1;
+  for (int i = projectile_index; i < *num_projectiles; ++i) {
+    e[i] = e[i+1];
+  }
+}

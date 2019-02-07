@@ -16,3 +16,12 @@ void move_enemy(Enemy *enemy, Isaac *isaac){
   enemy->ypos += ydiff > 0 ? enemy->speedy : -1 * enemy->speedy;
 
 }
+
+void delete_enemy(Enemy * e, int * num_enemies,
+                  const int enemy_index) {
+  e[enemy_index].exists = 0;
+  *num_enemies -= 1;
+  for (int i = enemy_index; i < *num_enemies; ++i) {
+    e[i] = e[i+1];
+  }
+}
