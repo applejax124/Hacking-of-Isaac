@@ -1,13 +1,13 @@
 #include <Arduboy2.h>
-#include <isaac.h>
-#include <projectile.h>
-#include <enemy.h>
-#include <status.h>
+#include "isaac.h"
+#include "projectile.h"
+#include "enemy.h"
+#include "status.h"
 
 void check_projectiles_to_enemies_collision() {
 
 }
-
+/*
 // Use xpos and ypos to frame each object
 
 // Put this in a loop where i < the number of obstacles in the room
@@ -26,5 +26,5 @@ if (arduboy.collide((isaacRect, flyRect) || (isaacRect, pooterRect) {
  // Remove a life 
  
 }
-
+*/
     

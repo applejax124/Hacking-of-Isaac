@@ -50,7 +50,7 @@ void loop() {
 
   draw_enemy(&arduboy, &f1);
   draw_enemy(&arduboy, &p1);
-  draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
+  //draw_room(&arduboy, &m.rooms[m.active_room], STATUS_BAR_HEIGHT);
   draw_status(&arduboy, &isaac, STATUS_BAR_HEIGHT);
   draw_isaac(&arduboy, &isaac);
   

@@ -1,9 +1,30 @@
 #include "projectile.h"
 
-void add_friendlies();
+void move_projectile(Projectile* p){
 
-void add_enemies();
+  if (p->range == 0){   //delete projectile if current range is 0
 
-void move_projectiles();
+   //remove projectile from room list
+   p->exists = 0;
 
-void draw_projectiles();
+  } else {   //update projectile position
+
+    p->range--;
+    p->xpos += p->speedx;
+    p->ypos += p->speedy;
+
+  }
+
+}
+
+void draw_projectile(Arduboy2 *arduboy, Projectile* p){
+
+  if (p->type == I){
+    arduboy->drawCircle(p->xpos, p->ypos, 1, WHITE);
+  } else if (p->type == H){
+    arduboy->fillCircle(p->xpos, p->ypos, 1, WHITE);
+  }
+
+}
+
+

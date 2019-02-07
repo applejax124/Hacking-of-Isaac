@@ -1,11 +1,11 @@
 #include <Arduboy2.h>
-#include <isaac.h>
-#include <projectile.h>
-#include <enemy.h>
-#include <status.h>
+#include "isaac.h"
+#include "projectile.h"
+#include "enemy.h"
+#include "status.h"
 
+/*
 // Use xpos and ypos to frame each object
-
 // Put this in a loop where i < the number of obstacles in the room
 // Put this in a while loopfor while obstacles are enabled
 Rect isaacRect = Rect{isaac.xpos, isaac.ypos, isaac.xpos+isaac.width, isaac.ypos-isaac.height};
@@ -22,5 +22,6 @@ if (arduboy.collide((isaacRect, flyRect) || (isaacRect, pooterRect) {
  // Remove a life 
  
 }
+*/
 
     
